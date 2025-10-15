@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Presente para meu Bruninho do coração - Fluminense FC</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #009739 40%, #ffffff 40%, #9B1B30 60%);
+    color: #ffffff00;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  header {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease forwards;
+  }
+
+  #quiz-container h3 {
+  color: black !important;
+}
+
+
+  header img {
+    width: 100px;
+    filter: drop-shadow(0 0 5px #000);
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
+  header img:hover {
+    transform: rotate(15deg) scale(1.1);
+  }
+
+  header h1 {
+    margin: 0.5rem 0 0 0;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 5px #222;
+    font-size: 1.6rem;
+  }
+
+  main {
+    background: rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 1.2rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 0 15px #444;
+    animation: fadeInUp 1.5s ease forwards;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  section h2 {
+    margin-bottom: 1rem;
+    color: #9B1B30;
+    text-shadow: 1px 1px 3px #000;
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #000000;
+    text-shadow: 1px 1px 3px #000;
+  }
+
+  /* Quiz styles */
+  .quiz-question {
+    background: rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #000;
+    box-shadow: 0 0 8px #6B0B17;
+    transition: background 0.3s ease;
+  }
+  .quiz-question:hover {
+    background: #9B1B30;
+    color: #000000;
+    cursor: pointer;
+  }
+  .quiz-question.correct {
+    background: #22b14c !important;
+    color: #000000 !important;
+    cursor: default;
+  }
+  .quiz-question.incorrect {
+    background: #d62728 !important;
+    color: #fff !important;
+    cursor: default;
+  }
+
+  button#nextBtn {
+    background-color: #9B1B30;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px #6B0B17;
+    width: 100%;
+    font-size: 1.1rem;
+  }
+  button#nextBtn:hover:not(:disabled) {
+    background-color: #b73244;
+  }
+  button#nextBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Animations */
+  @keyframes fadeInDown {
+    0% {opacity: 0; transform: translateY(-20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+  @keyframes fadeInUp {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+
+</style>
+</head>
+<body>
+
+<main>
+  <section>
+    <h2>Olá, Brunitcho! 🏟️</h2>
+    <p>Este site é um presente especial para você, torcedor apaixonado pelo Fluminense! Vamos ver como está seu conhecimento com este quiz? Boa sorte! ⚽❤️🤍💚</p>
+  </section>
+
+  <section id="quiz-section">
+    <h2>Quiz do Fluminense ⚽</h2>
+    <div id="quiz-container"></div>
+    <button id="nextBtn" disabled>Próxima</button>
+  </section>
+
+  <section id="result-section" style="display:none;">
+    <h2>Resultado do Quiz 🎉</h2>
+    <p id="result-text"></p>
+    <p style="margin-top:1rem; font-size:1.1rem; font-weight:bold; color:#9B1B30; text-shadow: 1px 1px 3px #000;">
+      Bruninhoo, você é um verdadeiro tricolor! Obrigado por compartilhar essa paixão comigo e ser tao bobinho e legall. Que possamos comemorar muitas vitórias juntos! 💚🤍❤️
+    </p>
+  </section>
+</main>
+
+<script>
+  const quizData = [
+    {
+      question: "Qual foi o primeiro estádio oficial do Fluminense?",
+      options: ["Laranjeiras", "Maracanã", "São Januário", "Engenhão"],
+      correct: 0
+    },
+    {
+      question: "Quantos títulos brasileiros o Fluminense conquistou até 2023?",
+      options: ["3", "4", "5", "6"],
+      correct: 2
+    },
+    {
+      question: "Qual jogador é conhecido como o 'Camisa 10' histórico do Fluminense?",
+      options: ["Assis", "Castilho", "Didi", "Fred"],
+      correct: 0
+    },
+    {
+      question: "Em que ano o Fluminense conquistou seu primeiro Campeonato Carioca?",
+      options: ["1906", "1911", "1912", "1904"],
+      correct: 0
+    },
+    {
+      question: "Qual desses foi ídolo e também técnico do Fluminense?",
+      options: ["Telê Santana", "Muricy Ramalho", "Abel Braga", "Felipe Scolari"],
+      correct: 2
+    },
+    {
+      question: "Qual o mascote oficial do Fluminense?",
+      options: ["Foca", "Galo", "Tubarão", "Lobo"],
+      correct: 3
+    },
+    {
+      question: "Quem foi o artilheiro do Fluminense na Copa Libertadores de 2008?",
+      options: ["Conca", "Washington", "Fred", "Thiago Neves"],
+      correct: 1
+    },
+    {
+      question: "Qual é o significado do símbolo do Fluminense (as letras FFC)?",
+      options: ["Fluminense Futebol Clube", "Futebol Futebol Clube", "Flamengo Futebol Clube", "Fla Futebol Clube"],
+      correct: 0
+    },
+    {
+      question: "Quantos estaduais consecutivos o Fluminense venceu entre 2012 e 2014?",
+      options: ["2", "3", "4", "5"],
+      correct: 1
+    },
+    {
+      question: "Quem é o maior rival histórico do Fluminense?",
+      options: ["Botafogo", "Vasco da Gama", "Flamengo", "Cruzeiro"],
+      correct: 2
+    }
+  ];
+
+  const quizContainer = document.getElementById('quiz-container');
+  const nextBtn = document.getElementById('nextBtn');
+  const resultSection = document.getElementById('result-section');
+  const resultText = document.getElementById('result-text');
+
+  let currentQuestion = 0;
+  let score = 0;
+  let answered = false;
+
+  function loadQuestion() {
+    answered = false;
+    nextBtn.disabled = true;
+    quizContainer.innerHTML = '';
+
+    const q = quizData[currentQuestion];
+    const questionElem = document.createElement('h3');
+    questionElem.textContent = q.question;
+    questionElem.style.color = '#fff';
+    questionElem.style.marginBottom = '1rem';
+    quizContainer.appendChild(questionElem);
+
+    q.options.forEach((option, index) => {
+      const optionDiv = document.createElement('div');
+      optionDiv.classList.add('quiz-question');
+      optionDiv.textContent = option;
+      optionDiv.addEventListener('click', () => selectAnswer(optionDiv, index));
+      quizContainer.appendChild(optionDiv);
+    });
+  }
+
+  function selectAnswer(optionDiv, index) {
+    if (answered) return;
+    answered = true;
+    nextBtn.disabled = false;
+
+    const q = quizData[currentQuestion];
+    const options = quizContainer.querySelectorAll('.quiz-question');
+
+    if (index === q.correct) {
+      optionDiv.classList.add('correct');
+      score++;
+    } else {
+      optionDiv.classList.add('incorrect');
+      options[q.correct].classList.add('correct');
+    }
+
+    // disable all options
+    options.forEach(opt => {
+      opt.style.pointerEvents = 'none';
+    });
+  }
+
+  nextBtn.addEventListener('click', () => {
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult() {
+    quizContainer.style.display = 'none';
+    nextBtn.style.display = 'none';
+    resultSection.style.display = 'block';
+    resultText.textContent = `Você acertou ${score} de ${quizData.length} perguntas! Parabéns pelo conhecimento tricolor! ⚽💚🤍❤️`;
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
